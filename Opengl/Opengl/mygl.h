@@ -7,36 +7,81 @@
 //*****************************************************************************
 // Defina aqui as suas funções gráficas
 //*****************************************************************************
-void putPixel(int x, int y,int r, int g, int b, int a){
+void putPixel(int x, int y,color c){
 	int s= 4 * x + 4 * y * IMAGE_WIDTH + 0;
-	printf("  %d  ",s);
-	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 0] = r;
-	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 1] = g;
-	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 2] = b;
-	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 3] = a;
+	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 0] = c.r;
+	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 1] = c.g;
+	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 2] = c.b;
+	FBptr[4 * x + 4 * y * IMAGE_WIDTH + 3] = c.a;
 }
 
-void drawLine(int x, int y,int r, int g, int b, int a,int x1, int y1,int r1, int g1, int b1, int a1){
-int dx= x1-x,dy=y1-y;
+ color mixColors(color c, color c1, float porcent){
+	c.r= c.r*(1.0f-porcent)+c1.r*porcent;
+	c.g= c.g*(1.0f-porcent)+c1.g*porcent;
+	c.b= c.b*(1.0f-porcent)+c1.b*porcent;
+	return c;
+}
+
+
+void drawLine(int x, int y,color c,int x1, int y1,color c1){
+int dx= x1-x,dy=y1-y, pX,pY,p;
+float step, fullstep, percent;//fullstep para criar interpolação
 int intery=y,interx=x1;//intersection
-	printf("delta %d %d ",dx,dy);
-	printf("|x %d %d",x,y);
-	printf("and y %d to %d |",y,y1);
+
+//define quadrantes
+	dx < 0 ? pX = -1 : pX = 1;
+	dy < 0 ? pY = -1 : pY = 1;
+
+
+
 	if(dx<0){
 		dx=-dx;
-		int aux=x;
-		x=x1;
-		x1=aux;
+	
 		
 	}
 	if(dy<0){
 		dy=-dy;
-		int aux=y;
-		y=y1;
-		y1=aux;
+	
 		
 	}
-	for(int i =x;i<=x1;i++){
+	//pega o maior deslocamento x ou y
+	dx> dy ? step = dx : step = dy;
+	p=step/2;
+	putPixel(x,y,c);
+	fullstep= step;
+	while(step > 0){
+		percent = step/fullstep;
+		printf("%f ",percent);
+		if(dx> dy){
+			x+= pY;
+			p-=dx;
+			
+			if(p>=dx){
+				y+=pY;
+				p-=dx;
+			}
+		}else{
+			y+= pY;
+			p += dx;
+			
+			if(p >=dy){
+				x += pX;
+				p -=dy;
+			}
+		}
+		color cf;
+		if(pX>1){
+			 cf= mixColors(c,c1,percent);
+		}else{
+			cf= mixColors(c1,c,percent);
+		}
+		
+		putPixel(x,y,cf);
+		printf(" %d %d %d \n",cf.r,cf.g,cf.b);
+		step--;
+	}
+
+	/*for(int i =x;i<=x1;i++){
 		putPixel(i,intery,255,0,0,255);
 	}
 	for(int i =y;i<=y1;i++){
@@ -44,7 +89,7 @@ int intery=y,interx=x1;//intersection
 	}
 
 	printf("| %d to %d ",x,x1);
-	printf("and y %d to %d |",y,y1);
+	printf("and y %d to %d |",y,y1);*/
 }
 
 

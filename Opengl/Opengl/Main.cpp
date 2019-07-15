@@ -15,9 +15,12 @@ void MyGlDraw(void)
 		}
 	}*/
 	int x,y,x1,y1;
+	color c,c1;
 	scanf("%d %d",&x,&y);
 	scanf("%d %d",&x1,&y1);
-	drawLine(x,y,0,0,0,0,x1,y1,0,0,0,0);
+	scanf("%d %d %d %d",&c.r,&c.g,&c.b,&c.a);
+	scanf("%d %d %d %d",&c1.r,&c1.g,&c1.b,&c1.a);
+	drawLine(x,y,c,x1,y1,c1);
 /* for (int i = 0; i < 512; i++) {
 		for (int j = 0; j < 512; j++) {
 			putPixel(i, j, 0,0, 0, 0);

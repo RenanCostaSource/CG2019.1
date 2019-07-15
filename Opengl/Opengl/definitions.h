@@ -6,6 +6,9 @@
 
 unsigned char * FBptr;
 
+typedef struct{
+    int r, g, b, a;
+}color;
 
 
 
