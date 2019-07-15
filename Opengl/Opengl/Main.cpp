@@ -6,28 +6,35 @@ void MyGlDraw(void)
 	//*************************************************************************
 	// Chame aqui as funções do mygl.h
 	//*************************************************************************
-	/* 	for (int i = 0; i < 512; i++) {
-		for (int j = 0; j < 512; j++) {
-			putPixel(i,j,255,0,0,255);
-			
-		
-			
-		}
-	}*/
-	int x,y,x1,y1;
-	color c,c1;
+	
+	int x,y,x1,y1,x2, y2;
+	color c,c1,c2;
+
+	/****** para desenhar linhas******
+
+	scanf("%d %d",&x,&y);
+	
+	scanf("%d %d %d %d",&c.r,&c.g,&c.b,&c.a);
+	
+	putPixel(x,y,c);
+	*/
+
+	/****** para desenhar linhas******
+
 	scanf("%d %d",&x,&y);
 	scanf("%d %d",&x1,&y1);
 	scanf("%d %d %d %d",&c.r,&c.g,&c.b,&c.a);
 	scanf("%d %d %d %d",&c1.r,&c1.g,&c1.b,&c1.a);
 	drawLine(x,y,c,x1,y1,c1);
-/* for (int i = 0; i < 512; i++) {
-		for (int j = 0; j < 512; j++) {
-			putPixel(i, j, 0,0, 0, 0);
-			
-		}
-	}*/
-	
+	*/
+	//para desenhar triangulos
+	scanf("%d %d",&x,&y);
+	scanf("%d %d",&x1,&y1);
+	scanf("%d %d",&x2,&y2);
+	scanf("%d %d %d %d",&c.r,&c.g,&c.b,&c.a);
+	scanf("%d %d %d %d",&c1.r,&c1.g,&c1.b,&c1.a);
+	scanf("%d %d %d %d",&c2.r,&c2.g,&c2.b,&c2.a);
+	drawTriangule(x,y,c,x1,y1,c1,x2,y2,c2);
 }
 
 //-----------------------------------------------------------------------------

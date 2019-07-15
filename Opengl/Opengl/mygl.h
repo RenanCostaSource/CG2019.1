@@ -91,7 +91,11 @@ int intery=y,interx=x1;//intersection
 	printf("| %d to %d ",x,x1);
 	printf("and y %d to %d |",y,y1);*/
 }
-
+void drawTriangule(int x, int y, color c, int x1, int y1, color c1, int x2, int y2, color c2){
+	drawLine(x,y,c,x1,y1,c1);
+	drawLine(x1,y1,c1,x2,y2,c2);
+	drawLine(x2,y2,c2,x,y,c);
+}
 
 #endif // _MYGL_H_
 
